@@ -1,10 +1,23 @@
 version: "3"
 services:
-  nginxx:
-    build: .
+  grafana:
+    image: grafana/grafana:5.1.0
     environment: 
+      - GF_SERVER_ROOT_URL=http://ec2-54-166-151-171.compute-1.amazonaws.com:3000
+      - GF_SECURITY_ADMIN_PASSWORD=123456
       - TZ="America/Bahia"
     ports:
-      - 86:80
-
+      - 3000:3000
+    user: "104"
+  mysql:
+    container_name: mysqlcontainer
+    image: mysql:5.7
+    ports: 
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: fiapdb
+      MYSQL_USER: fiap
+      MYSQL_PASSWORD: 123456
+      TZ: "America/Bahia"
 
